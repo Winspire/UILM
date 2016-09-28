@@ -1,0 +1,41 @@
+<?php
+
+// Required: anonymous function reference number as explained above.
+$funcNum = $_GET['CKEditorFuncNum'] ;
+// Optional: instance name (might be used to load a specific configuration file or anything else).
+$CKEditor = $_GET['CKEditor'] ;
+// Optional: might be used to provide localized messages.
+$langCode = $_GET['langCode'] ;
+ 
+// Check the $_FILES array and save the file. Assign the correct path to a variable ($url).
+$url = 'http://localhost/uilm/uploads/ckimages/'.$_FILES['NewFile']['tmp_name'];
+// Usually you will only assign something here if the file could not be uploaded.
+$message = '';
+ 
+echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$url', '$message');</script>";
+?>
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<base>
+		<link rel="stylesheet" href="browser.css">
+	</head>
+
+	<body>
+		<script type="text/x-template-html" id="js-template-image">
+			<a href="javascript://" class="thumbnail js-image-link" data-url="%imageUrl%"><img src="%thumbUrl%"></a>
+		</script>
+
+		<ul class="folder-switcher" id="js-folder-switcher"></ul>
+
+		<div class="images-container" id="js-images-container">Loading..</div>
+
+		<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="browser.js"></script>
+
+		<script type="text/javascript">
+			CkEditorImageBrowser.init();
+		</script>
+	</body>
+</html>
